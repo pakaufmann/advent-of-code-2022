@@ -6,14 +6,14 @@ fun main() {
     println(part2(rucksacks))
 }
 
-fun part1(rucksacks: List<String>): Int {
+private fun part1(rucksacks: List<String>): Int {
     return rucksacks.sumOf { rucksack ->
         val compartments = rucksack.compartments()
         compartments.first.intersect(compartments.second).first().priority()
     }
 }
 
-fun part2(rucksacks: List<String>): Int {
+private fun part2(rucksacks: List<String>): Int {
     return rucksacks.windowed(3, 3).sumOf { group ->
         group
             .map { it.itemize() }.reduce { f, s -> f.intersect(s) }

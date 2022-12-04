@@ -11,14 +11,14 @@ fun main() {
     println(part2(plays))
 }
 
-fun part1(plays: List<Pair<Char, Char>>): Int {
+private fun part1(plays: List<Pair<Char, Char>>): Int {
     return plays.sumOf { (opponent, mine) ->
         val normalized = mine.minus(23)
         normalized.score() + opponent.play(normalized)
     }
 }
 
-fun part2(plays: List<Pair<Char, Char>>): Int {
+private fun part2(plays: List<Pair<Char, Char>>): Int {
     return plays.sumOf { (opponent, outcome) ->
         when (outcome) {
             'X' -> opponent.lose().score()
