@@ -3,3 +3,4 @@ build
 inputs/*
 build.gradle.kts
 gradle/*
+.gradle
