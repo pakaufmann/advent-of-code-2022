@@ -25,7 +25,7 @@ private fun part1(
     val start = lines.findCoordinate('S') ?: throw Exception("no start found")
     val end = lines.findCoordinate('E') ?: throw Exception("no end found")
 
-    return findPath(start, end, square)
+    return findPath(start, end, square)!!
 }
 
 private fun part2(
@@ -35,8 +35,7 @@ private fun part2(
     val end = lines.findCoordinate('E')!!
 
     return lines.findCoordinates('a')
-        .map { findPath(it, end, square) }
-        .filter { it != -1 }
+        .mapNotNull { findPath(it, end, square) }
         .minOrNull()
 }
 
@@ -44,7 +43,7 @@ private fun findPath(
     start: Coordinate,
     end: Coordinate,
     square: List<List<Int>>
-): Int {
+): Int? {
     val searches = PriorityQueue<Candidate>(Comparator.comparing { it.length })
     searches.add(Candidate(start, 0))
 
@@ -64,7 +63,7 @@ private fun findPath(
         searches.addAll(neighbours)
     }
 
-    return -1
+    return null
 }
 
 private fun List<List<Int>>.getValidNeighbours(coordinate: Coordinate): List<Coordinate> {
