@@ -62,7 +62,9 @@ fun parse(input: String): Seq {
 }
 
 sealed interface Item {
-    fun isInOrder(other: Item): Boolean? {
+    fun isInOrder(other: Item?): Boolean? {
+        if (other == null) return false
+
         if (this is Num && other is Num) {
             return this.compareTo(other)
         }
@@ -70,16 +72,11 @@ sealed interface Item {
         val items = this.toSeq()
         val otherItems = other.toSeq()
 
-        val inOrder = items
-            .withIndex()
-            .map { (index, left) ->
-                when (val right = otherItems.getOrNull(index)) {
-                    null -> false
-                    else -> left.isInOrder(right)
-                }
-            }.firstOrNull { it != null }
+        for ((index, left) in items.withIndex()) {
+            val isInOrder = left.isInOrder(otherItems.getOrNull(index))
+            if (isInOrder != null) return isInOrder
+        }
 
-        if (inOrder != null) return inOrder
         return if (items.size == otherItems.size) null else items.size < otherItems.size
     }
 
