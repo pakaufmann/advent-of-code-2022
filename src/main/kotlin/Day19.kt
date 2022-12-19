@@ -1,6 +1,5 @@
 import java.io.File
 import java.util.*
-import kotlin.system.measureTimeMillis
 
 val resourceRegex = Regex("([0-9]+) (.+)")
 
