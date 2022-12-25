@@ -302,11 +302,11 @@ fun readInput(input: List<String>): Pair<Map<Coordinate, Tile>, List<Instruction
     return Pair(map, instructions.toList())
 }
 
-enum class Direction {
-    Right,
-    Down,
-    Left,
-    Up
+enum class Direction(val print: String) {
+    Right(">"),
+    Down("v"),
+    Left("<"),
+    Up("^")
 }
 
 enum class TileType {
